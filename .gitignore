@@ -1,0 +1,4 @@
+.idea/
+git add .gitignore
+git commit -m "Добавлен .gitignore для игнорирования файлов и каталогов"
+git push
