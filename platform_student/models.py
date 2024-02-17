@@ -4,7 +4,7 @@ NULLABLE = {'blank': True, 'null': True}
 
 class Section(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название секции")
-    description = models.TextField(verbose_name="Описание секции", **NULLABLE)
+    description = models.TextField(verbose_name="Описание секции", max_length=110,  **NULLABLE)
 
 
 class Material(models.Model):
