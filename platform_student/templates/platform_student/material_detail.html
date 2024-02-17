@@ -3,9 +3,10 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 border border-primary rounded p-4 mt-4 bg-secondary">
+        <div class="col-md-8 border rounded p-4 mt-4 bg-light" style="background-color: #d3d7db; border-color: #64717d; color: #212529;">
             <h2 class="text-center">{{ object.title }}</h2>
             <p class="text-center">{{ object.content }}</p>
+            <a href="{% url 'platform_student:quiz' material_id=object.id %}" class="btn btn-primary mt-3" style="background-color: #64717d; border-color: #64717d;">Пройти тест</a>
         </div>
     </div>
 </div>
