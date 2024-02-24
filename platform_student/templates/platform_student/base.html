@@ -19,24 +19,26 @@
             z-index: 1;
             top: 0;
             left: 0;
-            background-color: #007BFF;
+            background-color: #212529;
             color: white;
             overflow-y: auto;
             transition: 0.5s;
             padding-top: 60px;
+            border-color: #343a40;
         }
 
         .openbtn {
             font-size: 20px;
             cursor: pointer;
-            background-color: #007BFF;
+            background-color: #212529;
             color: white;
             padding: 10px 15px;
             border: none;
+            border-color: #64707d;
         }
 
         .openbtn:hover {
-            background-color: #0056b3;
+            background-color: #64707d;
         }
 
         .sidebar a {
@@ -47,16 +49,17 @@
             display: block;
             transition: 0.3s;
             margin-bottom: 10px;
+
         }
 
         .sidebar a:hover {
-            background-color: #0056b3;
+            background-color: #64707d;
         }
 
         .content-container {
             transition: margin-left 0.5s;
-            background-color: #f8f9fa; /* Изменен цвет фона основного контента */
-            color: #343a40; /* Изменен цвет текста основного контента */
+            background-color: #64707d;
+            color: #64707d;
         }
 
         .d-flex {
@@ -71,9 +74,19 @@
 
 <!-- Боковое меню -->
 <div id="mySidebar" class="sidebar">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-    <a href="#" class="p-2 btn btn-outline-primary btn-block">Главная страница</a>
-    <a href="#" class="p-2 btn btn-outline-primary btn-block">Профиль</a>
+    <a href="javascript:void(0)" class="p-2 closebtn text-center" onclick="closeNav()">Выйти из меню</a>
+    <a href="{% url 'platform_student:index' %}" class="p-2 btn btn-dark">Главная страница</a>
+    {% if user.is_authenticated %}
+    <a href="{% url 'users:logout' %}" class="p-2 btn btn-dark" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Выйти</a>
+    <a class="p-2 btn btn btn-dark" href="{% url 'users:profile' %}">Профиль</a>
+
+<form id="logout-form" action="{% url 'users:logout' %}" method="post" style="display: none;">
+    {% csrf_token %}
+</form>
+{% else %}
+    <a href="{% url 'users:login' %}" class="p-2 btn btn-dark">Войти</a>
+    <a class="p-2 btn btn-dark" href="{% url 'users:register' %}">Регистрация</a>
+{% endif %}
 </div>
 
 
@@ -82,9 +95,9 @@
     <main class="container">
   <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
     <div class="col-md-6 px-0">
-      <h1 class="display-15 fst-italic">Добро пожаловать на мой проект самообучения для студентов</h1>
-      <p class="lead my-3">Проект разработывается с целью помощи студентам для самостоятельного обучения </p>
-      <p class="lead mb-0"><a href="#" class="text-white fw-bold">Удачи!</a></p>
+      <h1 class="display-15 fst-italic">Добро пожаловать в мир самообучения</h1>
+      <p class="lead my-3">Проект создан с целью помощи студентам в их самостоятельном обучении и развитии</p>
+      <p class="lead mb-0"><a href="#" class="text-white fw-bold">Все получится!</a></p>
     </div>
   </div>
  {% block content %}
@@ -93,9 +106,9 @@
             <div class="col-md-6">
                 <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                     <div class="col p-4 d-flex flex-column position-static">
-                        <strong class="d-inline-block mb-2 text-primary">World</strong>
+                        <strong class="d-inline-block mb-2 text-primary">know the world</strong>
                         <h3 class="mb-0">{{ section.name }}</h3>
-                        <div class="mb-1 text-muted">Nov 12</div>
+                        <div class="mb-1 text-muted">Это интересно</div>
                         <p class="card-text mb-auto">{{ section.description }}</p>
                         <a href="{% url 'platform_student:material_list' section.id %}" class="stretched-link">Перейти</a>
                     </div>
@@ -119,7 +132,7 @@
 <footer class="text-muted">
     <div class="container">
         <p class="float-right">
-            <a href="#">Back to top</a>
+            <a href="#top">Вернуться в начало</a>
         </p>
         <p>{% now 'Y' %}</p>
     </div>

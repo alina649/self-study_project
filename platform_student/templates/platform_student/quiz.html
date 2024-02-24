@@ -1,0 +1,31 @@
+{% extends 'platform_student/base.html' %}
+
+{% block content %}
+    <h2 class="mb-4">Тест</h2>
+    <form method="post" action="{% url 'platform_student:check_answer' %}">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                {% for question in questions %}
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <legend class="text-left">{{ question.question }}</legend>
+                                <label class="form-check">
+                                    <input type="radio" name="question{{ question.id }}" value="{{ question.option1 }}" class="form-check-input"> {{ question.option1 }}
+                                </label><br>
+                                <label class="form-check">
+                                    <input type="radio" name="question{{ question.id }}" value="{{ question.option2 }}" class="form-check-input"> {{ question.option2 }}
+                                </label><br>
+                                <label class="form-check">
+                                    <input type="radio" name="question{{ question.id }}" value="{{ question.option3 }}" class="form-check-input"> {{ question.option3 }}
+                                </label><br>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Проверить ответы</button>
+    </form>
+{% endblock %}
