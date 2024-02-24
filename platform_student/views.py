@@ -1,13 +1,13 @@
-from django.http import JsonResponse, HttpResponseBadRequest
-from django.shortcuts import render, redirect
+from django.http import HttpResponseBadRequest
+from django.shortcuts import render
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
 
 from platform_student.models import Section, Material, Test
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView
 
 
 def index(request):
+    """Главная страница"""
     section_list = Section.objects.all()
     context = {
         'section_list': section_list
@@ -16,12 +16,14 @@ def index(request):
 
 
 def material_list(request, section_id):
+    """Страница с Материалами"""
     section = Section.objects.get(pk=section_id)
     materials = Material.objects.filter(section=section)
     return render(request, 'platform_student/material_list.html', {'section': section, 'materials': materials})
 
 
 class MaterialDetailView(DetailView):
+    """Модель детального просмотра материала на странице"""
     model = Material
 
 
